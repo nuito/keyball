@@ -66,5 +66,38 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void oledkit_render_info_user(void) {
     keyball_oled_render_keyinfo();
     keyball_oled_render_ballinfo();
+
+  // <Layer>を表示する
+  oled_write_P(PSTR("Layer:"), false);
+  oled_write(get_u8_str(get_highest_layer(layer_state), ' '), false);
+
+  // <マウス移動量 / クリックレイヤーしきい値>を表示
+  // oled_write_P(PSTR(" MV:"), false);
+  // oled_write(get_u8_str(mouse_movement, ' '), false);
+  // oled_write_P(PSTR("/"), false);
+  // oled_write(get_u8_str(to_clickable_movement, ' '), false);
+
+  // <state>を表示
+  switch (state)
+  {
+  case NONE:
+    oled_write_ln_P(PSTR("  NONE"), false);
+    break;
+  case CLICKABLE:
+    oled_write_ln_P(PSTR("  CLICKABLE"), false);
+    break;
+  case WAITING:
+    oled_write_ln_P(PSTR("  WAITING"), false);
+    break;
+  case CLICKING:
+    oled_write_ln_P(PSTR("  CLICKING"), false);
+    break;
+  case SWIPE:
+    oled_write_ln_P(PSTR("  SWIPE"), false);
+    break;
+  case SWIPING:
+    oled_write_ln_P(PSTR("  SWIPING"), false);
+    break;
+  }
 }
 #endif
